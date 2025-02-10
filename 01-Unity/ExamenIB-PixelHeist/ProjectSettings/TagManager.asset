@@ -9,6 +9,9 @@ TagManager:
   - linterna-guardia
   - objetivo
   - salida
+  - llave
+  - reloj
+  - puerta
   layers:
   - Default
   - TransparentFX

@@ -8,6 +8,10 @@ public class PlayerInteraction : MonoBehaviour
 {
     private bool objetivoConseguido = false; // Indica si el objetivo fue conseguido.
     public Text messageText;
+    
+    [SerializeField] private float tiempoAdicional;
+
+    private bool hasLlave = false;
 
     private void Start()
     {
@@ -38,6 +42,28 @@ public class PlayerInteraction : MonoBehaviour
             else
             {
                 ShowMessage("No puedes salir sin completar el objetivo.");
+            }
+        }
+        
+        // Verifica si el jugador tiene la llave para abrir la puerta
+        if (collision.gameObject.CompareTag("llave"))
+        {
+            hasLlave = true;
+            collision.gameObject.SetActive(false);
+        }
+        if (collision.gameObject.CompareTag("puerta") && hasLlave)
+        {
+            collision.gameObject.SetActive(false);
+        }
+        
+        // Verificar si el jugador recoge un reloj
+        if (collision.gameObject.CompareTag("reloj")) 
+        {
+            collision.gameObject.SetActive(false);
+            GameTimer timer = FindObjectOfType<GameTimer>();
+            if (timer != null)
+            {
+                timer.tiempo += tiempoAdicional;
             }
         }
     }
